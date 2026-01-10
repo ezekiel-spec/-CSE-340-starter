@@ -1,108 +1,46 @@
-/* ----- MOBILE FIRST STYLES (Default) ----- */
-* {
-    box-sizing: border-box;
-}
+/* ******************************************
+ * This server.js file is the primary file of the 
+ * application. It is used to control the project.
+ *******************************************/
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    background-color: #f4f4f4;
-}
+/* ***********************
+ * Require Statements
+ *************************/
+const express = require("express")
+const env = require("dotenv").config()
+const app = express()
+const static = require("./routes/static")
+const expressLayouts = require("express-ejs-layouts")
 
-.home-container {
-    padding: 10px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+/* ***********************
+ * View Engine Setup
+ *************************/
+app.set("view engine", "ejs")
+app.use(expressLayouts)
+app.set("layout", "./layouts/layout") // Informs express-ejs-layouts where the main template is
 
-/* Hero Section - Mobile Stacked */
-.hero-section {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    margin-bottom: 20px;
-}
+/* ***********************
+ * Routes
+ *************************/
+// Use the static routes for public assets (css, images, js)
+app.use(static)
 
-.hero-content {
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 15px;
-    z-index: 1;
-}
+// Index Route - This handles the "Cannot GET /" error
+app.get("/", function(req, res){
+  // This will render the views/index.ejs file inside the layout
+  res.render("index", {title: "Home"})
+})
 
-.hero-title {
-    color: #00a0c6;
-    margin-top: 0;
-}
+/* ***********************
+ * Local Server Information
+ * Values from .env (environment) file
+ *************************/
+const port = process.env.PORT || 5500
+const host = process.env.HOST || 'localhost'
 
-.hero-button {
-    background-color: #00a0c6;
-    color: black;
-    padding: 10px 20px;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.hero-image {
-    width: 100%;
-    height: auto;
-}
-
-/* Upgrades & Reviews - Mobile Single Column */
-.details-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.upgrade-items {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* 2x2 on mobile */
-    gap: 10px;
-}
-
-.upgrade-card {
-    background-color: #00a0c6;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #ccc;
-}
-
-.img-box {
-    background-color: white;
-    margin-bottom: 5px;
-    padding: 5px;
-}
-
-.upgrade-card img {
-    height: 50px;
-    width: auto;
-}
-
-/* ----- LARGE SCREEN STYLES (Media Query) ----- */
-@media screen and (min-width: 768px) {
-    /* Hero Overlay for Large Screen */
-    .hero-content {
-        position: absolute;
-        top: 50px;
-        left: 50px;
-        border: 1px solid #00a0c6;
-    }
-
-    /* Side-by-Side Layout */
-    .details-grid {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-
-    .upgrades-section {
-        flex: 1;
-        order: 1;
-    }
-
-    .reviews-section {
-        flex: 1;
-        order: 2;
-    }
-}
+/* ***********************
+ * Log statement to confirm server operation
+ *************************/
+app.listen(port, () => {
+  console.log(`app listening on ${host}:${port}`)
+})
