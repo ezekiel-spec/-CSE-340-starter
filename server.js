@@ -1,46 +1,108 @@
-/* ******************************************
- * This server.js file is the primary file of the 
- * application. It is used to control the project.
- *******************************************/
+/* ----- MOBILE FIRST STYLES (Default) ----- */
+* {
+    box-sizing: border-box;
+}
 
-/* ***********************
- * Require Statements
- *************************/
-const express = require("express")
-const env = require("dotenv").config()
-const app = express()
-const static = require("./routes/static")
-const expressLayouts = require("express-ejs-layouts") // Required for CSE 340 templates
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
 
-/* ***********************
- * View Engine Setup
- *************************/
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // Informs where the main template is
+.home-container {
+    padding: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-/* ***********************
- * Routes
- *************************/
-// Static Routes
-app.use(static)
+/* Hero Section - Mobile Stacked */
+.hero-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin-bottom: 20px;
+}
 
-// Index Route (This fixes the "Cannot GET /" error)
-app.get("/", function(req, res){
-  // This will look for "index.ejs" inside your "views" folder
-  res.render("index", {title: "Home"})
-})
+.hero-content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px;
+    z-index: 1;
+}
 
-/* ***********************
- * Local Server Information
- * Values from .env (environment) file
- *************************/
-const port = process.env.PORT || 5500
-const host = process.env.HOST || 'localhost'
+.hero-title {
+    color: #00a0c6;
+    margin-top: 0;
+}
 
-/* ***********************
- * Log statement to confirm server operation
- *************************/
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
-})
+.hero-button {
+    background-color: #00a0c6;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hero-image {
+    width: 100%;
+    height: auto;
+}
+
+/* Upgrades & Reviews - Mobile Single Column */
+.details-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upgrade-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2x2 on mobile */
+    gap: 10px;
+}
+
+.upgrade-card {
+    background-color: #00a0c6;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.img-box {
+    background-color: white;
+    margin-bottom: 5px;
+    padding: 5px;
+}
+
+.upgrade-card img {
+    height: 50px;
+    width: auto;
+}
+
+/* ----- LARGE SCREEN STYLES (Media Query) ----- */
+@media screen and (min-width: 768px) {
+    /* Hero Overlay for Large Screen */
+    .hero-content {
+        position: absolute;
+        top: 50px;
+        left: 50px;
+        border: 1px solid #00a0c6;
+    }
+
+    /* Side-by-Side Layout */
+    .details-grid {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .upgrades-section {
+        flex: 1;
+        order: 1;
+    }
+
+    .reviews-section {
+        flex: 1;
+        order: 2;
+    }
+}
