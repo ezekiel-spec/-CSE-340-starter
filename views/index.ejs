@@ -1,7 +1,70 @@
-<h1>Welcome to the CSE 340 Starter Site</h1>
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
+<%- include('./partials/nav') %>
 
-<p>This is the home page. If you are seeing this, your server and routes are working correctly!</p>
+<main class="home">
 
-<div class="home-grid">
-    <p>Future content like vehicle classifications or featured cars will go here.</p>
-</div>
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Welcome to CSE Motors!</h1>
+
+      <h2 class="car-name">DMC Delorean</h2>
+      <ul>
+        <li>3 Cup holders</li>
+        <li>Superman doors</li>
+        <li>Fuzzy dice!</li>
+      </ul>
+
+      <a class="cta-btn" href="#">Own Today</a>
+    </div>
+
+    <div class="hero-image">
+      <img src="/images/delorean.png" alt="DMC Delorean">
+    </div>
+  </section>
+
+  <section class="content-grid">
+
+    <div class="upgrades">
+      <h2>Delorean Upgrades</h2>
+
+      <div class="upgrade-grid">
+        <figure>
+          <img src="/images/flux-capacitor.png" alt="Flux Capacitor">
+          <figcaption>Flux Capacitor</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/images/flame-decals.png" alt="Flame Decals">
+          <figcaption>Flame Decals</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/images/bumper-stickers.png" alt="Bumper Stickers">
+          <figcaption>Bumper Stickers</figcaption>
+        </figure>
+
+        <figure>
+          <img src="/images/hub-caps.png" alt="Hub Caps">
+          <figcaption>Hub Caps</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <aside class="reviews">
+      <h2>DMC Delorean Reviews</h2>
+
+      <ul>
+        <li>"So fast it's almost like traveling in time." (4/5)</li>
+        <li>"Coolest ride on the road." (4/5)</li>
+        <li>"I'm feeling McFly!" (5/5)</li>
+        <li>"The most futuristic ride of our day." (4.5/5)</li>
+        <li>"80's livin and I love it!" (5/5)</li>
+      </ul>
+    </aside>
+
+  </section>
+
+</main>
+
+<%- include('./partials/footer') %>
