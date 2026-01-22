@@ -11,6 +11,7 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const expressLayouts = require("express-ejs-layouts")
+const baseController = require("./controllers/baseController")
 
 /* ***********************
  * View Engine Setup
@@ -26,10 +27,10 @@ app.set("layout", "./layouts/layout") // Informs express-ejs-layouts where the m
 app.use(static)
 
 // Index Route - This handles the "Cannot GET /" error
-app.get("/", function(req, res){
+app.get("/", baseController.buildHome)
   // This will render the views/index.ejs file inside the layout
   res.render("index", {title: "Home"})
-})
+
 
 /* ***********************
  * Local Server Information
