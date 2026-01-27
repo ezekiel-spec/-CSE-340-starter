@@ -1,2 +1,22 @@
-<h1><%= title %></h1>
-<p class="error-message"><%= message %></p>
+<div class="error-container">
+    <h1>500</h1>
+    <div class="error-alert-box">
+        <p><%= message %></p>
+    </div>
+    <p>Don't worry, it's not your fault. You can try <a href="/">returning to the home page</a> or using the navigation menu above to find what you're looking for.</p>
+</div>
+
+<style>
+    .error-container {
+        text-align: center;
+        margin-top: 50px;
+    }
+    .error-alert-box {
+        background-color: #fff3f3;
+        border-left: 5px solid #d10000; /* Red border from screenshot */
+        padding: 20px;
+        margin: 20px auto;
+        display: inline-block;
+        max-width: 80%;
+    }
+</style>

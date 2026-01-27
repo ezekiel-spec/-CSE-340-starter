@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <%- include('../partials/head') %>
+    <title><%= title %> | CSE Motors</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <div id="wrapper">
-        <header id="top-header">
-            <%- include('../partials/header') %>
+        <header>
+            <span class="siteName"><a href="/">CSE Motors</a></span>
+            <div id="tools">
+                <a href="/account/login">My Account</a>
+            </div>
         </header>
-        <nav>
-            <%- include('../partials/navigation') %>
-        </nav>
+        
+        <%- nav %> 
+
         <main>
-            <%- body %> </main>
-        <footer>
-            <%- include('../partials/footer') %>
-        </footer>
+            <%- body %>
+        </main>
+        
+        <%- include('../partials/footer') %>
     </div>
 </body>
 </html>

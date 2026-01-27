@@ -1,54 +1,86 @@
-/* MOBILE FIRST STYLES */
+/* --- Global & Wrapper --- */
 body { font-family: sans-serif; background-color: #fff; margin: 0; }
 #wrapper { padding: 10px; max-width: 1000px; margin: 0 auto; }
 
-/* Hero Section - Mobile (Stacked) */
-.hero-container { display: flex; flex-direction: column; margin-bottom: 20px; }
-.hero-text { order: 1; padding: 10px; background: #fff; color: #00a0c6; }
-.hero-img { order: 2; width: 100%; height: auto; }
-.hero-btn { background-color: #00a0c6; padding: 10px; border: none; font-weight: bold; }
+/* --- Navigation (Dark Bar from Screenshot) --- */
+#top-nav { background-color: #3a3a3a; padding: 10px 0; margin-bottom: 20px; }
+#top-nav ul { list-style: none; display: flex; justify-content: space-around; padding: 0; margin: 0; }
+#top-nav ul li a { color: #fff; text-decoration: none; font-weight: bold; }
 
-/* Grid Content - Mobile (Single Column) */
-.flex-content { display: flex; flex-direction: column; gap: 20px; }
-.upgrade-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
-.upgrade-item { background-color: #00a0c6; border: 1px solid #333; padding: 5px; }
-.img-wrapper { background-color: #fff; padding: 5px; }
-.upgrade-item img { height: 60px; width: auto; }
+/* --- Vehicle Detail View - Mobile First --- */
+#detail-display { display: flex; flex-direction: column; gap: 20px; padding: 10px; }
+#detail-display img { width: 100%; max-width: 500px; height: auto; border-radius: 5px; }
+.price { font-size: 1.4rem; font-weight: bold; color: #d10000; }
 
-/* Vehicle Detail View - Mobile (Stacked) */
-#detail-display {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-#detail-display img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    margin: 0 auto;
-}
-.price {
-    font-size: 1.4em;
-    font-weight: bold; /* Make price prominent */
-    color: #00a0c6;
+/* --- Error View (Red-bordered Alert) --- */
+.error-alert-box {
+  background-color: #fff3f3;
+  border-left: 5px solid #d10000;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 80%;
+  text-align: center;
 }
 
-/* LARGE SCREEN STYLES */
+/* --- Desktop Layout (700px+) --- */
 @media screen and (min-width: 700px) {
-    .hero-container { position: relative; }
-    .hero-text { position: absolute; top: 30px; left: 30px; border: 1px solid #00a0c6; z-index: 5; }
-    .flex-content { flex-direction: row; }
-    .upgrades, .reviews { flex: 1; }
-    .upgrades { order: 1; }
-    .reviews { order: 2; }
+  #detail-display { flex-direction: row; align-items: flex-start; }
+  #detail-display img, #vehicle-details { flex: 1; }
+  #vehicle-details { padding-left: 30px; }
+}
+/* Dark Navigation Bar Container */
+#top-nav {
+    background-color: #3a3a3a; /* Dark gray from your screenshot */
+    padding: 10px 0;
+    width: 100%;
+}
 
-    /* Vehicle Detail View - Desktop (Side-by-Side) */
-    #detail-display {
-        flex-direction: row;
-        align-items: flex-start;
-    }
-    #detail-display img, 
-    #vehicle-details {
-        flex: 1;
-    }
+/* Horizontal List */
+#top-nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-evenly; /* Spreads Custom, Sedan, Sport, etc. */
+    margin: 0;
+    padding: 0;
+}
+
+/* Link Styling */
+#top-nav ul li a {
+    color: #ffffff; /* White text for visibility */
+    text-decoration: none;
+    font-weight: bold;
+    font-family: sans-serif;
+    padding: 10px 15px;
+    display: block;
+}
+
+#top-nav ul li a:hover {
+    background-color: #555; /* Subtle hover effect */
+}
+/* --- Navigation Bar (Matches image_308d22.png) --- */
+#top-nav {
+    background-color: #3a3a3a; /* Dark gray background */
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+#top-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around; /* Spreads categories across the bar */
+    padding: 0;
+    margin: 0;
+}
+
+#top-nav ul li a {
+    color: #ffffff; /* White text for visibility */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: block;
+}
+
+#top-nav ul li a:hover {
+    background-color: #555;
+    color: #ffffff;
 }

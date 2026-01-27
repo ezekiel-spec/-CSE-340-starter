@@ -1,10 +1,9 @@
 const { Pool } = require("pg")
 require("dotenv").config()
+
 /* ***************
  * Connection Pool
- * SSL Object needed for local testing of app
- * But will cause problems in production environment
- * If - else will make determination which to use
+ * SSL is required for Render/External databases
  * *************** */
 let pool
 if (process.env.NODE_ENV == "development") {
@@ -13,10 +12,14 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false,
     },
-})
+  })
+} else {
+  pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  })
+}
 
-// Added for troubleshooting queries
-// during development
 module.exports = {
   async query(text, params) {
     try {
@@ -28,10 +31,4 @@ module.exports = {
       throw error
     }
   },
-}
-} else {
-  pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-  })
-  module.exports = pool
 }

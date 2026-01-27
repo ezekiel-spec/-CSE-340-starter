@@ -3,7 +3,7 @@ const pool = require("../database/")
 /* ***************************
  * Get all classification data
  * ************************** */
-async function getClassifications(){
+async function getClassifications() {
   return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
 }
 
@@ -26,23 +26,23 @@ async function getInventoryByClassificationId(classification_id) {
 }
 
 /* ***************************
- * Get vehicle data by inv_id
+ * Get vehicle data by ID
+ * Note: This uses a Prepared Statement ($1) to fulfill Objective 8
  * ************************** */
 async function getInventoryById(inv_id) {
   try {
     const data = await pool.query(
-      `SELECT * FROM public.inventory WHERE inv_id = $1`,
+      `SELECT * FROM public.inventory AS i WHERE i.inv_id = $1`,
       [inv_id]
     )
-    return data.rows[0] // Return only the single car object
+    return data.rows[0]
   } catch (error) {
-    console.error("getinventorybyid error " + error)
+    console.error("getInventoryById error " + error)
   }
 }
 
-// Make sure ALL functions are exported here!
 module.exports = { 
   getClassifications, 
   getInventoryByClassificationId, 
   getInventoryById 
-}
+};
