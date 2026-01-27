@@ -10,27 +10,26 @@ const baseController = require("./controllers/baseController")
  * *********************** */
 app.set("view engine", "ejs")
 app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // Informs express-ejs-layouts where the main template is
+app.set("layout", "./layouts/layout") 
 
 /* ***********************
  * Routes
  * *********************** */
-// Use the static routes for public assets (css, images, js)
 app.use(static)
 
-// Index Route - Altered to use the baseController
+// Index Route
 app.get("/", baseController.buildHome)
 
 /* ***********************
- * Local Server Information
- * Values from .env (environment) file
+ * Server Information
  * *********************** */
 const port = process.env.PORT || 5500
-const host = process.env.HOST || 'localhost'
+// Change: Render requires 0.0.0.0 to accept outside traffic
+const host = process.env.HOST || '0.0.0.0'
 
 /* ***********************
  * Log statement to confirm server operation
  * *********************** */
-app.listen(port, () => {
-  console.log(`app listening on ${host}:${port}`)
+app.listen(port, host, () => {
+  console.log(`app listening on http://${host}:${port}`)
 })
