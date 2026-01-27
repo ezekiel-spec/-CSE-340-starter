@@ -15,6 +15,24 @@ body { font-family: sans-serif; background-color: #fff; margin: 0; }
 .img-wrapper { background-color: #fff; padding: 5px; }
 .upgrade-item img { height: 60px; width: auto; }
 
+/* Vehicle Detail View - Mobile (Stacked) */
+#detail-display {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+#detail-display img {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin: 0 auto;
+}
+.price {
+    font-size: 1.4em;
+    font-weight: bold; /* Make price prominent */
+    color: #00a0c6;
+}
+
 /* LARGE SCREEN STYLES */
 @media screen and (min-width: 700px) {
     .hero-container { position: relative; }
@@ -23,4 +41,14 @@ body { font-family: sans-serif; background-color: #fff; margin: 0; }
     .upgrades, .reviews { flex: 1; }
     .upgrades { order: 1; }
     .reviews { order: 2; }
+
+    /* Vehicle Detail View - Desktop (Side-by-Side) */
+    #detail-display {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    #detail-display img, 
+    #vehicle-details {
+        flex: 1;
+    }
 }
