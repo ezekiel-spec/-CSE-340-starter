@@ -16,3 +16,6 @@ router.get("/detail/:invId", utilities.handleErrors(invController.getVehicleDeta
 router.get("/trigger-error", utilities.handleErrors(invController.triggerError));
 
 module.exports = router;
+// Route to build vehicle detail view
+router.get("/detail/:invId", utilities.handleErrors(invController.buildDetailView))
+router.get("/detail/:invId", utilities.handleErrors(invController.buildDetailView))

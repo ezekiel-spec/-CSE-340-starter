@@ -11,7 +11,12 @@ invCont.buildByClassificationId = async function (req, res, next) {
   const data = await invModel.getInventoryByClassificationId(classification_id)
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
-  const className = data[0].classification_name
+  
+  // Safety check: use "Vehicle" if the category is empty
+  const className = (data && data.length > 0) 
+    ? data[0].classification_name 
+    : "Vehicle"
+
   res.render("./inventory/classification", {
     title: className + " vehicles",
     nav,
@@ -26,6 +31,7 @@ invCont.getVehicleDetail = async function (req, res, next) {
   const inv_id = req.params.invId
   const data = await invModel.getInventoryById(inv_id)
   
+  // If no data is returned, send to 404 handler
   if (!data) {
     const err = new Error('Vehicle not found')
     err.status = 404
@@ -47,8 +53,7 @@ invCont.getVehicleDetail = async function (req, res, next) {
  * Trigger intentional 500 error
  * ************************** */
 invCont.triggerError = async function (req, res, next) {
-  const error = new Error("This is an intentional 500 error for testing!")
-  error.status = 500
+  const error = new Error("Oh no! There was a crash. Maybe try a different route?")
   next(error)
 }
 
