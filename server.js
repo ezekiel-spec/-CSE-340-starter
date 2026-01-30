@@ -35,4 +35,3 @@ const host = process.env.HOST || 'localhost'
 app.listen(port, () => {
   console.log(`app listening on http://${host}:${port}`)
 })
-app.use(express.static('public'))
