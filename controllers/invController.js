@@ -71,15 +71,14 @@ invCont.addClassification = async function (req, res, next) {
   const { classification_name } = req.body
   const result = await invModel.addClassification(classification_name)
   
-  // Re-fetch nav regardless of result to ensure the view has it, 
-  // but specifically AFTER the result to get the new data.
-  let nav = await utilities.getNav()
+  // RE-FETCH NAV: This ensures the menu updates with the new classification immediately
+  let nav = await utilities.getNav() 
 
   if (result) {
     req.flash("notice", `The ${classification_name} classification was successfully added.`)
     res.status(201).render("inventory/management", {
       title: "Vehicle Management",
-      nav, // This now contains the new classification
+      nav,
       errors: null,
     })
   } else {
@@ -110,7 +109,7 @@ invCont.buildAddInventory = async function (req, res, next) {
  * Task 3: Process New Inventory Item
  * ************************** */
 invCont.addInventoryItem = async function (req, res, next) {
-  const { 
+  let { 
     inv_make, inv_model, inv_year, inv_description, 
     inv_image, inv_thumbnail, inv_price, inv_miles, 
     inv_color, classification_id 
@@ -132,7 +131,8 @@ invCont.addInventoryItem = async function (req, res, next) {
       errors: null,
     })
   } else {
-    let classificationSelect = await utilities.buildClassificationList(classification_id)
+    // If it fails, keep the dropdown selection sticky
+    let classificationSelect = await utilities.buildClassificationList(classification_id) 
     req.flash("notice", "Sorry, adding the vehicle failed.")
     res.status(501).render("inventory/add-inventory", {
       title: "Add New Vehicle",
@@ -145,6 +145,9 @@ invCont.addInventoryItem = async function (req, res, next) {
   }
 }
 
+/* ***************************
+ * Error Trigger for Testing
+ * ************************** */
 invCont.triggerError = async function (req, res, next) {
   const error = new Error("Oh no! There was a crash. Maybe try a different route?")
   next(error)

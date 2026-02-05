@@ -21,7 +21,7 @@ async function getInventoryByClassificationId(classification_id) {
     )
     return data.rows
   } catch (error) {
-    console.error("getclassificationsbyid error " + error)
+    console.error("getInventoryByClassificationId error: " + error)
   }
 }
 
@@ -36,7 +36,7 @@ async function getInventoryById(inv_id) {
     )
     return data.rows[0]
   } catch (error) {
-    console.error("getInventoryById error " + error)
+    console.error("getInventoryById error: " + error)
   }
 }
 
@@ -48,6 +48,7 @@ async function addClassification(classification_name) {
     const sql = "INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING *"
     return await pool.query(sql, [classification_name])
   } catch (error) {
+    console.error("addClassification error: " + error.message)
     return error.message
   }
 }
@@ -84,6 +85,7 @@ async function addInventoryItem(
       classification_id
     ])
   } catch (error) {
+    console.error("addInventoryItem error: " + error.message)
     return error.message
   }
 }
@@ -92,6 +94,6 @@ module.exports = {
   getClassifications, 
   getInventoryByClassificationId, 
   getInventoryById,
-  addClassification, // Added for Task 2
-  addInventoryItem   // Added for Task 3
+  addClassification, 
+  addInventoryItem 
 };
