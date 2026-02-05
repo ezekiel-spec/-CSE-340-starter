@@ -143,3 +143,30 @@ header ul, #wrapper > ul:first-of-type {
         grid-template-columns: 1fr; /* Stack Upgrades and Reviews on small screens */
     }
 }
+form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 20px 0;
+}
+
+form label {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+form input, form select, form textarea {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #3a7ca5;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

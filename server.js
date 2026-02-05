@@ -4,6 +4,33 @@ const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
+const session = require("express-session")
+const flash = require("connect-flash")
+const bodyParser = require("body-parser")
+
+/* ***********************
+ * Middleware
+ * *********************** */
+
+// Body Parser Middleware (to handle form data)
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+
+// Session Middleware
+app.use(session({
+  secret: 'secret', // Use a real secret in production
+  resave: true,
+  saveUninitialized: true
+}))
+
+// Flash Messages Middleware
+app.use(flash())
+
+// Express Messages Middleware (to satisfy "messages is not defined")
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
 /* ***********************
  * View Engine and Layouts
