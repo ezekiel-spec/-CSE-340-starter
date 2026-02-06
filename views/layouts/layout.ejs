@@ -9,28 +9,20 @@
 <body>
     <div id="wrapper">
         <header>
-            <span class="site-name">CSE Motors</span>
-            <div id="tools">
-                <a href="/account/login">My Account</a>
-            </div>
+            <span class="site-name"><a href="/">CSE Motors</a></span>
+            <%- include('../partials/header') %>
         </header>
 
         <nav id="top-nav">
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/inv/type/1">Custom</a></li>
-            <li><a href="/inv/type/2">Sedan</a></li>
-            <li><a href="/inv/type/3">Sport</a></li>
-            <li><a href="/inv/type/4">SUV</a></li>
-            <li><a href="/inv/type/5">Truck</a></li>
-          </ul>
+            <%- include('../partials/navigation') %>
         </nav>
 
         <main>
-            <%- body %> </main>
+            <%- body %>
+        </main>
 
         <footer>
-            <p>&copy; 2026, CSE 340 App</p>
+            <%- include('../partials/footer') %>
         </footer>
     </div>
 </body>

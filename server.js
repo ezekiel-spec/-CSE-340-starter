@@ -1,8 +1,10 @@
+const cookieParser = require("cookie-parser") // Already here
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute") // NEW: Required for login/registration
 const baseController = require("./controllers/baseController")
 const session = require("express-session")
 const flash = require("connect-flash")
@@ -13,9 +15,12 @@ const utilities = require("./utilities/")
  * Middleware
  * *********************** */
 
-// Body Parser Middleware to handle POST request data
+// Body Parser Middleware
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// NEW: Cookie Parser Middleware (Must be before checkJWTToken)
+app.use(cookieParser())
 
 // Session Middleware
 app.use(session({
@@ -27,11 +32,15 @@ app.use(session({
 // Flash Messages Middleware
 app.use(flash())
 
-// Express Messages Middleware (Solves the "messages is not defined" error)
+// Express Messages Middleware
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
+
+// NEW: JWT Checker Middleware (Applied globally)
+// This will check for a "ticket" on every request
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * View Engine and Layouts
@@ -49,16 +58,21 @@ app.use(express.static('public'))
  * Routes
  *************************/
 app.use(static)
+
 // Index route
 app.get("/", baseController.buildHome)
+
 // Inventory routes
 app.use("/inv", inventoryRoute)
 
+// NEW: Account routes (handles /account/login, etc.)
+app.use("/account", accountRoute)
+
 /* ***********************
- * Error Handling Middleware (NEW - Task 1 Requirement)
+ * Error Handling Middleware
  * *********************** */
 
-// File Not Found Route - must be the last route in the list
+// File Not Found Route
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })

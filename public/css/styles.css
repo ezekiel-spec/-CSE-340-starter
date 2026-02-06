@@ -170,3 +170,73 @@ form button {
     border: none;
     cursor: pointer;
 }
+.login-card {
+  background-color: #58abd3; /* The blue color from your image */
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 0 auto;
+  border: 2px solid white;
+}
+
+.login-card label, .login-card p {
+  color: black;
+  display: block;
+  margin-top: 10px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+}
+
+.login-card .password-info {
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+#psswdBtn {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.submitBtn {
+  display: block;
+  margin-top: 15px;
+  padding: 5px 15px;
+}
+/* Container for the account pages */
+.login-wrapper, .management-wrapper {
+  padding: 20px;
+  text-align: center;
+}
+
+/* The blue card style from your screenshots */
+.login-card, .management-card {
+  background-color: #5bb1d9; /* The specific blue in your images */
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 450px;
+  margin: 20px auto;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+  text-align: left; /* Aligns form labels and text properly */
+}
+
+/* Specific styling for the management text */
+.management-card h2, .management-card h3 {
+  color: #000;
+  margin-top: 0;
+}
+
+.login-status {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
