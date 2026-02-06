@@ -17,9 +17,9 @@ validate.classificationRules = () => {
 }
 
 /* ******************************
- * Check data and return errors (RENAMED TO MATCH ROUTE)
+ * Check data and return errors
  * ***************************** */
-validate.checkClassificationData = async (req, res, next) => { // Renamed from checkListData
+validate.checkClassificationData = async (req, res, next) => {
   const { classification_name } = req.body
   let errors = []
   errors = validationResult(req)
@@ -45,7 +45,6 @@ validate.inventoryRules = () => {
     body("inv_make").trim().escape().notEmpty().isLength({ min: 3 }).withMessage("Please provide a valid make."),
     body("inv_model").trim().escape().notEmpty().isLength({ min: 3 }).withMessage("Please provide a valid model."),
     body("inv_year").trim().isNumeric().isLength({ min: 4, max: 4 }).withMessage("Please provide a 4-digit year."),
-    // Added missing fields below to ensure database doesn't reject them
     body("inv_description").trim().escape().notEmpty().withMessage("Description is required."),
     body("inv_image").trim().notEmpty().withMessage("Image path is required."),
     body("inv_thumbnail").trim().notEmpty().withMessage("Thumbnail path is required."),
@@ -77,6 +76,51 @@ validate.checkInventoryData = async (req, res, next) => {
       classificationSelect,
       inv_make, inv_model, inv_year, inv_description,
       inv_image, inv_thumbnail, inv_price, inv_miles, inv_color,
+    })
+    return
+  }
+  next()
+}
+
+/* ******************************
+ * Check update data and return errors or continue to update
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    const classificationSelect = await utilities.buildClassificationList(classification_id)
+    const itemName = `${inv_make} ${inv_model}`
+    res.render("inventory/edit-inventory", {
+      errors,
+      title: "Edit " + itemName,
+      nav,
+      classificationSelect,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
     })
     return
   }
