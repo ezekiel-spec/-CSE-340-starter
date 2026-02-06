@@ -51,3 +51,5 @@ router.post(
 router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 
 module.exports = router
+// Add utilities.checkLogin between the path and the controller
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
