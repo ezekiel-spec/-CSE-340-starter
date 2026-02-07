@@ -30,20 +30,30 @@ router.get("/add-vehicle", utilities.handleErrors(invController.buildAddInventor
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 /* ***********************
- * Edit Inventory Route
+ * Edit/Delete Inventory Routes (GET)
  * *********************** */
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView));
+
+// Route to build delete confirmation view
+router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteView));
 
 /* ***********************
  * Process Data Routes (Post)
  * *********************** */
+
 // Route to process the update request
 router.post(
   "/update",
-  validate.inventoryRules(),
-  validate.checkUpdateData,
+  validate.inventoryRules(), // Check the rules
+  validate.checkUpdateData,  // Redirects to 'edit-inventory' if errors found
   utilities.handleErrors(invController.updateInventory)
 )
+
+// Route to process the delete request
+router.post(
+  "/delete", 
+  utilities.handleErrors(invController.deleteItem)
+);
 
 // Process the classification data
 router.post(
@@ -65,7 +75,5 @@ router.post(
  * Error Testing Route
  * *********************** */
 router.get("/error", utilities.handleErrors(invController.triggerError));
-// Route to build delete confirmation view
-router.get("/delete/:inv_id", utilities.handleErrors(invController.deleteView));
 
 module.exports = router;

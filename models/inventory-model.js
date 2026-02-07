@@ -89,6 +89,7 @@ async function addInventoryItem(
     return error.message
   }
 }
+
 /* ***************************
  * Update Inventory Data
  * ************************** */
@@ -126,6 +127,7 @@ async function updateInventory(
     console.error("model error: " + error)
   }
 }
+
 /* ***************************
  * Delete Inventory Data
  * ************************** */
@@ -138,10 +140,13 @@ async function deleteInventoryItem(inv_id) {
     return new Error("Delete Inventory Error")
   }
 }
+
 module.exports = { 
   getClassifications, 
   getInventoryByClassificationId, 
   getInventoryById,
   addClassification, 
-  addInventoryItem 
+  addInventoryItem,
+  updateInventory,
+  deleteInventoryItem
 };

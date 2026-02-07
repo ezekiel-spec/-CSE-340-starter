@@ -21,8 +21,7 @@ validate.classificationRules = () => {
  * ***************************** */
 validate.checkClassificationData = async (req, res, next) => {
   const { classification_name } = req.body
-  let errors = []
-  errors = validationResult(req)
+  let errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
     res.render("inventory/add-classification", {
@@ -55,7 +54,7 @@ validate.inventoryRules = () => {
 }
 
 /* ******************************
- * Check data and return errors or continue to add-inventory
+ * Check data and return errors (Add Inventory)
  * ***************************** */
 validate.checkInventoryData = async (req, res, next) => {
   const {
@@ -64,8 +63,7 @@ validate.checkInventoryData = async (req, res, next) => {
     inv_color, classification_id,
   } = req.body
   
-  let errors = []
-  errors = validationResult(req)
+  let errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
     let classificationSelect = await utilities.buildClassificationList(classification_id)
@@ -83,7 +81,7 @@ validate.checkInventoryData = async (req, res, next) => {
 }
 
 /* ******************************
- * Check update data and return errors or continue to update
+ * Check update data and return errors (Edit Inventory)
  * ***************************** */
 validate.checkUpdateData = async (req, res, next) => {
   const {
@@ -99,8 +97,8 @@ validate.checkUpdateData = async (req, res, next) => {
     inv_color,
     classification_id,
   } = req.body
-  let errors = []
-  errors = validationResult(req)
+  
+  let errors = validationResult(req)
   if (!errors.isEmpty()) {
     let nav = await utilities.getNav()
     const classificationSelect = await utilities.buildClassificationList(classification_id)
