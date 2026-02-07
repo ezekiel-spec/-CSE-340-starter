@@ -1,0 +1,46 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/navigation') %>
+
+<main class="management-wrapper">
+  <h1><%= title %></h1>
+
+  <%- messages() %>
+
+  <div class="management-card">
+    <h2>Update Account Information</h2>
+    <form action="/account/update" method="post">
+      <label for="account_firstname">First Name</label>
+      <input type="text" name="account_firstname" id="account_firstname" required 
+        value="<%= locals.account_firstname %>">
+
+      <label for="account_lastname">Last Name</label>
+      <input type="text" name="account_lastname" id="account_lastname" required 
+        value="<%= locals.account_lastname %>">
+
+      <label for="account_email">Email Address</label>
+      <input type="email" name="account_email" id="account_email" required 
+        value="<%= locals.account_email %>">
+
+      <button type="submit" class="submitBtn">Update Info</button>
+      <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+    </form>
+  </div>
+
+  <hr>
+
+  <div class="management-card">
+    <h2>Change Password</h2>
+    <p class="password-info">Requirements: 12+ characters, 1 uppercase, 1 number, 1 special character.</p>
+    <form action="/account/password" method="post">
+      <label for="account_password">New Password</label>
+      <input type="password" name="account_password" id="account_password" 
+        required pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{12,}).*$">
+
+      <button type="submit" id="psswdBtn">Change Password</button>
+      <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+    </form>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

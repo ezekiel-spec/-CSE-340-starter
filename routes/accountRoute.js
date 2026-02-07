@@ -18,11 +18,19 @@ router.get("/register", utilities.handleErrors(accountController.buildRegistrati
 /* ***********************
  * Deliver Account Management View (Default Route)
  * *********************** */
-// If your server crashes here, ensure utilities.checkLogin exists in utilities/index.js
 router.get(
   "/", 
   utilities.checkLogin, 
   utilities.handleErrors(accountController.buildManagementView)
+)
+
+/* ***********************
+ * Deliver Account Update View (Task 5)
+ * *********************** */
+router.get(
+  "/update/:account_id",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildAccountUpdate)
 )
 
 /* ***********************
@@ -46,10 +54,28 @@ router.post(
 )
 
 /* ***********************
- * Process Logout Request
+ * Process Account Update (Task 5)
+ * *********************** */
+router.post(
+  "/update",
+  regValidate.updateAccountRules(), // We will need to add these rules
+  regValidate.checkUpdateData,      // We will need to add this check
+  utilities.handleErrors(accountController.updateAccount)
+)
+
+/* ***********************
+ * Process Password Update (Task 5)
+ * *********************** */
+router.post(
+  "/password",
+  regValidate.passwordRules(),      // We will need to add these rules
+  regValidate.checkPasswordData,    // We will need to add this check
+  utilities.handleErrors(accountController.updatePassword)
+)
+
+/* ***********************
+ * Process Logout Request (Task 6)
  * *********************** */
 router.get("/logout", utilities.handleErrors(accountController.accountLogout))
 
 module.exports = router
-// Add utilities.checkLogin between the path and the controller
-router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildManagement))
