@@ -53,7 +53,7 @@ Util.buildClassificationGrid = async function(data){
       grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
       + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model 
       + 'details"><img src="' + vehicle.inv_thumbnail 
-      +' alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
       +' on CSE Motors" /></a>'
       grid += '<div class="namePrice">'
       grid += '<hr />'
@@ -96,20 +96,21 @@ Util.buildVehicleDetail = async function(data) {
  **************************************** */
 Util.checkJWTToken = (req, res, next) => {
   if (req.cookies.jwt) {
-   jwt.verify(
-    req.cookies.jwt,
-    process.env.ACCESS_TOKEN_SECRET,
-    function (err, accountData) {
-     if (err) {
-      req.flash("Please log in")
-      res.clearCookie("jwt")
-      return res.redirect("/account/login")
-     }
-     res.locals.accountData = accountData
-     res.locals.loggedin = 1
-     next()
-    })
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("notice", "Please log in")
+          res.clearCookie("jwt")
+          return res.redirect("/account/login")
+        }
+        res.locals.accountData = accountData
+        res.locals.loggedin = 1
+        next()
+      })
   } else {
+    res.locals.loggedin = 0
     next()
   }
 }
@@ -132,14 +133,3 @@ Util.checkLogin = (req, res, next) => {
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 module.exports = Util
-/* ****************************************
- * Check Login
- * ************************************ */
- Util.checkLogin = (req, res, next) => {
-  if (res.locals.loggedin) {
-    next()
-  } else {
-    req.flash("notice", "Please log in.")
-    return res.redirect("/account/login")
-  }
- }
