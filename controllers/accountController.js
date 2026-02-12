@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 const accountModel = require("../models/account-model")
+const wishlistModel = require("../models/wishlist-model") // NEW: Import wishlist model
 const utilities = require("../utilities/")
 require("dotenv").config()
 
@@ -42,7 +43,6 @@ accountController.registerAccount = async function (req, res) {
     account_password,
   } = req.body
 
-  // Hash the password before storing in database
   let hashedPassword
   try {
     hashedPassword = await bcrypt.hashSync(account_password, 10)
@@ -125,14 +125,39 @@ accountController.accountLogin = async function (req, res) {
 
 /* ****************************************
  * Deliver account management view
+ * UPDATED for Wishlist Enhancement
  * ************************************ */
 accountController.buildManagementView = async function (req, res, next) {
   let nav = await utilities.getNav()
+  
+  // NEW: Fetch wishlist items for the logged-in user
+  const account_id = res.locals.accountData.account_id
+  const wishlist = await wishlistModel.getWishlistByAccountId(account_id)
+  
   res.render("account/management", {
     title: "Account Management",
     nav,
     errors: null,
+    wishlist, // NEW: Pass wishlist data to the view
   })
+}
+
+/* ****************************************
+ * Process Add to Wishlist
+ * NEW: Enhancement Function
+ * ************************************ */
+accountController.addWishlistItem = async function (req, res) {
+  const { inv_id } = req.body
+  const account_id = res.locals.accountData.account_id
+  
+  const result = await wishlistModel.addWishlistItem(inv_id, account_id)
+  
+  if (result) {
+    req.flash("notice", "Vehicle added to your wishlist!")
+  } else {
+    req.flash("notice", "Sorry, could not add vehicle to wishlist.")
+  }
+  res.redirect("/account/")
 }
 
 /* ****************************************
@@ -167,7 +192,6 @@ accountController.updateAccount = async function (req, res) {
   )
 
   if (updateResult) {
-    // Re-fetch data to update session/locals
     const updatedData = await accountModel.getAccountById(account_id)
     delete updatedData.account_password
     const accessToken = jwt.sign(updatedData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })

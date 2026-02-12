@@ -21,6 +21,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
 
 /* ***************************
  * Deliver vehicle detail view
+ * UPDATED for Wishlist Enhancement
  * ************************** */
 invCont.getVehicleDetail = async function (req, res, next) {
   const inv_id = req.params.invId
@@ -33,10 +34,12 @@ invCont.getVehicleDetail = async function (req, res, next) {
   const detailHtml = await utilities.buildVehicleDetail(data)
   let nav = await utilities.getNav()
   const title = `${data.inv_year} ${data.inv_make} ${data.inv_model}`
+  
   res.render("./inventory/detail", {
     title: title,
     nav,
     detailHtml,
+    inv_id: data.inv_id, // Passed specifically for the Wishlist form
   })
 }
 
@@ -195,6 +198,7 @@ invCont.triggerError = async function (req, res, next) {
   const error = new Error("Oh no! There was a crash. Maybe try a different route?")
   next(error)
 }
+
 /* ***************************
  * Update Inventory Data
  * ************************** */
@@ -255,6 +259,7 @@ invCont.updateInventory = async function (req, res, next) {
     })
   }
 }
+
 /* ***************************
  * Build delete confirmation view
  * ************************** */
@@ -274,6 +279,7 @@ invCont.deleteView = async function (req, res, next) {
     inv_price: itemData.inv_price,
   })
 }
+
 /* ***************************
  * Process Delete Item Request
  * ************************** */

@@ -240,3 +240,21 @@ form button {
   font-weight: bold;
   margin-bottom: 20px;
 }
+.wishlist-action {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.wishlist-btn {
+  background-color: #3498db; /* Match your blue card theme */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.wishlist-btn:hover {
+  background-color: #2980b9;
+}

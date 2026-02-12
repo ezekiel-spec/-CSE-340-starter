@@ -1,6 +1,23 @@
+<%- include('../partials/head') %>
+<%- include('../partials/header') %>
+<%- include('../partials/navigation') %>
 
-<h1><%= title %></h1>
-<%- messages() %>
-<div id="detail-container">
-  <%- detailHtml %>
-</div>
+<main>
+  <h1><%= title %></h1>
+  <%- messages() %>
+
+  <div id="detail-container">
+    <%- detailHtml %>
+    
+    <% if (locals.loggedin) { %>
+      <div class="wishlist-action">
+        <form action="/account/wishlist" method="post">
+          <input type="hidden" name="inv_id" value="<%= inv_id %>">
+          <button type="submit" class="wishlist-btn">❤ Add to Wishlist</button>
+        </form>
+      </div>
+    <% } %>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

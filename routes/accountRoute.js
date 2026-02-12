@@ -58,8 +58,8 @@ router.post(
  * *********************** */
 router.post(
   "/update",
-  regValidate.updateAccountRules(), // We will need to add these rules
-  regValidate.checkUpdateData,      // We will need to add this check
+  regValidate.updateAccountRules(), 
+  regValidate.checkUpdateData,      
   utilities.handleErrors(accountController.updateAccount)
 )
 
@@ -68,9 +68,18 @@ router.post(
  * *********************** */
 router.post(
   "/password",
-  regValidate.passwordRules(),      // We will need to add these rules
-  regValidate.checkPasswordData,    // We will need to add this check
+  regValidate.passwordRules(),      
+  regValidate.checkPasswordData,    
   utilities.handleErrors(accountController.updatePassword)
+)
+
+/* ***********************
+ * Process Wishlist Add (Final Enhancement)
+ * *********************** */
+router.post(
+  "/wishlist",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.addWishlistItem)
 )
 
 /* ***********************
